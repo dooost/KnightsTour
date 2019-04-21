@@ -12,11 +12,15 @@ import java.text.DecimalFormat;
  * @author Basir Doost
  */
 public class KTSolver {
-    private int N;
-    private int startRow;
-    private int startColumn;
+    private final int N;
+    private final int startRow;
+    private final int startColumn;
+    
     private int[][] board;
     private int plength;
+    
+    private static final int xMove[] = { 2, 1, -1, -2, -2, -1, 1, 2 };
+    private static final int yMove[] = { 1, 2, 2, 1, -1, -2, -2, -1 };
     
     public KTSolver(int n, int row, int column) {
         N = n;
@@ -35,7 +39,7 @@ public class KTSolver {
         if (btSolve(startRow, startColumn)) {
                 print();
         } else {
-                System.out.println("NO PATH FOUND");
+                System.out.println("Impossible...");
         }
     }
     
@@ -51,36 +55,11 @@ public class KTSolver {
             return true;
         }
         
-        if (isValid(row + 2, column + 1) && btSolve(row + 2, column + 1)) {
+        for (int i = 0; i < xMove.length; ++i) {
+            if (isValid(row + xMove[i], column + yMove[i]) 
+                    && btSolve(row + xMove[i], column + yMove[i])) {
                 return true;
-        }
-        
-        if (isValid(row + 1, column + 2) && btSolve(row + 1, column + 2)) {
-                return true;
-        }
-        
-        if (isValid(row - 1, column + 2) && btSolve(row - 1, column + 2)) {
-                return true;
-        }
-        
-        if (isValid(row - 2, column + 1) && btSolve(row - 2, column + 1)) {
-                return true;
-        }
-
-        if (isValid(row - 2, column - 1) && btSolve(row - 2, column - 1)) {
-                return true;
-        }
-        
-        if (isValid(row - 1, column - 2) && btSolve(row - 1, column - 2)) {
-                return true;
-        }
-        
-        if (isValid(row + 1, column - 2) && btSolve(row + 1, column - 2)) {
-                return true;
-        }
-        
-        if (isValid(row + 2, column - 1) && btSolve(row + 2, column - 1)) {
-                return true;
+            }
         }
         
         
