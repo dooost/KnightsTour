@@ -19,30 +19,33 @@ public class KTSolver {
     private int[][] board;
     private int plength;
     
+    // List of possible moves on a clockwise direction
     private static final int xMove[] = { 2, 1, -1, -2, -2, -1, 1, 2 };
     private static final int yMove[] = { 1, 2, 2, 1, -1, -2, -2, -1 };
     
-    public KTSolver(int n, int row, int column) {
-        N = n;
+    public KTSolver(int N, int row, int column) {
+        this.N = N;
         startRow = row;
         startColumn = column;
         plength = 0;
-        board = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
+        board = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                     board[i][j] = -1;
             }
         }
     }
     
+    
     public void solve() {
         if (btSolve(startRow, startColumn)) {
-                print();
+                printBoard();
         } else {
                 System.out.println("Impossible...");
         }
     }
     
+    // The backtracking algorithm to find the solution
     private boolean btSolve(int row, int column) {
         if (board[row][column] != -1) {
             return false;
@@ -74,7 +77,7 @@ public class KTSolver {
         return false;
     }
     
-    public void print() {
+    private void printBoard() {
         DecimalFormat format = new DecimalFormat("00");
         
         for (int i = 0; i < N; i++) {
