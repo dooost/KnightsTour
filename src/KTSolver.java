@@ -54,7 +54,9 @@ public class KTSolver {
         board[row][column] = plength;
         plength++;
         
+        // If we have visited all the squares on the board
         if (plength == N * N) {
+            
             // This loop checks whether we can end up at the starting position
             // from the last square
             for (int i = 0; i < xMove.length; ++i) {
