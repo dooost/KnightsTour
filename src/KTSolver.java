@@ -55,9 +55,21 @@ public class KTSolver {
         plength++;
         
         if (plength == N * N) {
-            return true;
+            // This loop checks whether we can end up at the starting position
+            // from the last square
+            for (int i = 0; i < xMove.length; ++i) {
+                if (isValid(row + xMove[i], column + yMove[i])
+                        && board[row + xMove[i]][column + yMove[i]] == 0)
+                    return true;
+            }
+            
+            // If we can't end up back at the starting position, we backtrack
+            board[row][column] = -1;
+            plength--;
+            return false;
         }
         
+        // Check if any move from the current square can lead to a solution
         for (int i = 0; i < xMove.length; ++i) {
             if (isValid(row + xMove[i], column + yMove[i]) 
                     && btSolve(row + xMove[i], column + yMove[i])) {
